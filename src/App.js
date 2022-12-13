@@ -1,5 +1,5 @@
-import Header from './components/Header/Header';
-import Categories from './components/Categories/Categories';
+import Header from './components/Header';
+import Categories from './components/Categories';
 
 import './scss/app.scss';
 
