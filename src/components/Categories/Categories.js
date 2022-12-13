@@ -3,6 +3,7 @@ const Categories = () => {
 
     return (
         <div class="categories">
+
             <ul>
                 <li class="active">Все</li>
                 <li>Мясные</li>
