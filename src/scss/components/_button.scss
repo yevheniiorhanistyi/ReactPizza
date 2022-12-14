@@ -4,7 +4,7 @@
   display: inline-block;
   background-color: $orange;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 14px 20px;
   min-width: 100px;
   text-align: center;
   cursor: pointer;
@@ -12,9 +12,15 @@
   border: 1px solid transparent;
   @include noselect();
 
+  &-content {
+    display: flex;
+    align-items: center;
+  }
+
   &,
   span {
     color: #fff;
+    margin: 0 5px;
   }
 
   i,

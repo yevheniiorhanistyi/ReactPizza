@@ -1,3 +1,4 @@
+import pizzas from '../assets/pizza.json';
 import Header from './Header';
 import Categories from './Categories';
 import Sort from './Sort';
@@ -22,7 +23,13 @@ function App() {
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
 
-            <PizzaBlock title="Мексиканская" price={300} />
+
+            {
+              pizzas.map((obj) => (
+                <PizzaBlock key={obj.id} title={obj.title} price={obj.price} imageUrl={obj.imageUrl} />
+              ))
+            }
+
 
           </div>
         </div>
