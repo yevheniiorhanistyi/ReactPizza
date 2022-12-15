@@ -15,22 +15,16 @@ function App() {
       <div className="content">
         <div className="container">
           <div className="content__top">
-
             <Categories />
             <Sort />
-
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-
-
             {
               pizzas.map((obj) => (
-                <PizzaBlock key={obj.id} title={obj.title} price={obj.price} imageUrl={obj.imageUrl} />
+                <PizzaBlock key={obj.id} {...obj} />
               ))
             }
-
-
           </div>
         </div>
       </div>
