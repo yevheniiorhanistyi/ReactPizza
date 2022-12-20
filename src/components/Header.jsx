@@ -11,10 +11,7 @@ const Header = () => {
                 <Link to='/'>
                     <div className="header__logo">
                         <img width="38" src={pizzaLogo} alt="Pizza logo" />
-                        <div>
-                            <h1>React Pizza</h1>
-                            <p>самая вкусная пицца во вселенной</p>
-                        </div>
+                        <h1>React Pizza</h1>
                     </div>
                 </Link>
                 <div className="header__cart">

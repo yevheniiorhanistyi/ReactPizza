@@ -17,7 +17,7 @@
     align-items: center;
   }
 
-  &,
+
   span {
     color: #fff;
     margin: 0 5px;
@@ -142,6 +142,10 @@
     line-height: 23px;
     padding: 12px 25px;
 
+    @media (max-width: 330px) {
+      padding: 10px;
+    }
+
     svg {
       margin-right: 8px;
       margin-bottom: 1px;
@@ -150,6 +154,7 @@
     span {
       font-weight: 600;
       font-size: 16px;
+
     }
   }
 }

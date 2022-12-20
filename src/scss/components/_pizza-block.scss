@@ -3,14 +3,20 @@
 .pizza-block {
   width: 280px;
   text-align: center;
+  padding: 0 8px;
   margin-bottom: 65px;
 
-  &:not(:nth-of-type(4n)) {
-    margin-right: 35px;
+  &-wrapper {
+    display: flex;
+    justify-content: center;
   }
 
   &__image {
-    width: 260px;
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+    text-align: center;
   }
 
   &__title {
