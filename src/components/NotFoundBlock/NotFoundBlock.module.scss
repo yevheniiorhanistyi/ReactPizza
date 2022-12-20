@@ -1,0 +1,44 @@
+.root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px;
+
+    @media (max-width: 764px) {
+        padding: 20px;
+        flex-direction: column;
+    }
+}
+
+.title {
+    font-size: 78px;
+    margin-right: 15px;
+
+    @media (max-width: 420px) {
+        font-size: 48px;
+    }
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 250px;
+    padding: 12px 25px;
+
+    background-color: #fe5f1e;
+    border-radius: 30px;
+
+    @media (max-width: 420px) {
+        padding: 10px;
+    }
+}
+
+.description {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+
+    @media (max-width: 420px) {
+        font-size: 18px;
+    }
+}
