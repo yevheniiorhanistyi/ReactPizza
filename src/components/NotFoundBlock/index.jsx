@@ -4,7 +4,7 @@ import styles from './NotFoundBlock.module.scss';
 
 const NotFoundBlock = () => {
     return (
-        <div className="container">
+        <div className="container" >
             <div className={styles.root}>
                 <h1 className={styles.title}>404</h1>
                 <div className={styles.wrapper}>

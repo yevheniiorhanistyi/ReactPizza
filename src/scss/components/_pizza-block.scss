@@ -1,7 +1,8 @@
 @import '../variables.scss';
 
 .pizza-block {
-  width: 280px;
+  width: 100%;
+  max-width: 280px;
   text-align: center;
   padding: 0 8px;
   margin-bottom: 65px;
