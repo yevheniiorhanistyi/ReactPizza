@@ -8,10 +8,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 660px) {
+      flex-direction: column;
+    }
   }
 
   &__logo {
     display: flex;
+    align-items: center;
+
+    @media (max-width: 660px) {
+      margin-bottom: 15px;
+    }
+
 
     img {
       margin-right: 15px;
@@ -23,10 +33,11 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media (max-width: 330px) {
+        font-size: 18px;
+      }
     }
 
-    p {
-      color: #7b7b7b;
-    }
   }
 }
