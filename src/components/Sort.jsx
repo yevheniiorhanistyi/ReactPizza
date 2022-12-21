@@ -4,9 +4,9 @@ const Sort = ({ value, onChangeSort }) => {
     const [open, setOpen] = React.useState(false);
 
     const list = [
-        { name: 'популярности', sortProperty: 'rating' },
-        { name: 'цене', sortProperty: 'price' },
-        { name: 'алфавиту', sortProperty: 'title' }];
+        { name: 'Popularność', sortProperty: 'rating' },
+        { name: 'Ceny rosnąco', sortProperty: '-price' },
+        { name: 'Ceny malejąco', sortProperty: 'price' }];
 
     const onClickSelectedItem = (id) => {
         onChangeSort(id);
@@ -29,7 +29,7 @@ const Sort = ({ value, onChangeSort }) => {
                         fill="#2C2C2C"
                     />
                 </svg>
-                <b>Сортировка по:</b>
+                <b>Sortuj</b>
                 <span onClick={() => setOpen(!open)}>{value.name}</span>
             </div>
             {
