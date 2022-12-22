@@ -1,4 +1,5 @@
 import React from "react";
+import { SearchContext } from '../components/App';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -7,7 +8,8 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from "../components/Pagination";
 
-const Home = ({ searchValue, setSearchValue }) => {
+const Home = () => {
+    const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const [categoryId, setCategoryId] = React.useState(0);
@@ -50,7 +52,7 @@ const Home = ({ searchValue, setSearchValue }) => {
                 <Categories value={categoryId} onChangeCategory={(id) => setCategoryId(id)} />
                 <Sort value={sortType} onChangeSort={(id) => setSortType(id)} />
             </div>
-            <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+            <Search />
             <div className="content__items">
                 {isLoading ? skeletons : pizzas}
             </div>
