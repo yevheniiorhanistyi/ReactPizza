@@ -2,22 +2,27 @@ import React from "react";
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
+import Search from "../components/search";
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 
-const Home = () => {
+const Home = ({ searchValue, setSearchValue }) => {
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const [categoryId, setCategoryId] = React.useState(0);
     const [sortType, setSortType] = React.useState({
-        name: 'популярности',
+        name: 'Popularność',
         sortProperty: 'rating'
     });
 
 
     React.useEffect(() => {
         setIsLoading(true);
-        fetch(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${categoryId > 0 ? `category=${categoryId}` : ''}&sortBy=${sortType.sortProperty}&order=desc`)
+        const sortBy = sortType.sortProperty.replace('-', '');
+        const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+        const category = categoryId > 0 ? `category=${categoryId}` : '';
+
+        fetch(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`)
             .then((res) => {
                 return res.json()
             })
@@ -34,8 +39,7 @@ const Home = () => {
                 <Categories value={categoryId} onChangeCategory={(id) => setCategoryId(id)} />
                 <Sort value={sortType} onChangeSort={(id) => setSortType(id)} />
             </div>
-            <h2 className="content__title">Все пиццы</h2>
-
+            <Search searchValue={searchValue} setSearchValue={setSearchValue} />
             <div className="content__items">
 
                 {
