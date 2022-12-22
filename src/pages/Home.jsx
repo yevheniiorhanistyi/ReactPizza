@@ -2,14 +2,16 @@ import React from "react";
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
-import Search from "../components/search";
+import Search from "../components/Search";
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
+import Pagination from "../components/Pagination";
 
 const Home = ({ searchValue, setSearchValue }) => {
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const [categoryId, setCategoryId] = React.useState(0);
+    const [currentPage, setCurrentPage] = React.useState(1);
     const [sortType, setSortType] = React.useState({
         name: 'Popularność',
         sortProperty: 'rating'
@@ -22,7 +24,7 @@ const Home = ({ searchValue, setSearchValue }) => {
         const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
 
-        fetch(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`)
+        fetch(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}`)
             .then((res) => {
                 return res.json()
             })
@@ -31,7 +33,16 @@ const Home = ({ searchValue, setSearchValue }) => {
                 setIsLoading(false);
             })
         window.scrollTo(0, 0);
-    }, [categoryId, sortType])
+    }, [categoryId, sortType, searchValue, currentPage])
+
+    const pizzas = items.filter((obj) => {
+        if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+            return true;
+        }
+        return false;
+    }).map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+
+    const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
     return (
         <div className="container">
@@ -41,12 +52,9 @@ const Home = ({ searchValue, setSearchValue }) => {
             </div>
             <Search searchValue={searchValue} setSearchValue={setSearchValue} />
             <div className="content__items">
-
-                {
-                    isLoading ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-                        : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
-                }
+                {isLoading ? skeletons : pizzas}
             </div>
+            <Pagination onChangePage={(number) => setCurrentPage(number)} />
         </div>
     )
 }

@@ -1,0 +1,50 @@
+.root {
+
+    @media (max-width: 1400px) {
+        text-align: center;
+    }
+
+    li {
+        display: inline-block;
+
+        &.selected {
+            a {
+                background-color: #fe5f1e;
+                color: #fff;
+            }
+        }
+    }
+
+    a {
+        display: inline-block;
+        text-align: center;
+        line-height: 45px;
+        color: #fe5f1e;
+
+        width: 45px;
+        height: 45px;
+
+        margin-right: 10px;
+        border: 1px solid #fe5f1e;
+        border-radius: 30px;
+
+        user-select: none;
+
+        cursor: pointer;
+        transition: background-color .2s linear, color .2s linear;
+
+        &:hover {
+            background-color: #fe5f1e;
+            color: #fff;
+        }
+    }
+}
+
+:global {
+    .selected {
+        a {
+            background-color: #fe5f1e;
+            color: #fff;
+        }
+    }
+}

@@ -2,7 +2,7 @@
 
 .header {
   border-bottom: 1px solid $gray-line;
-  padding: 40px 0;
+  padding: 25px 0;
 
   .container {
     display: flex;
@@ -18,7 +18,7 @@
     display: flex;
     align-items: center;
 
-    @media (max-width: 660px) {
+    @media (max-width: 520px) {
       margin-bottom: 15px;
     }
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from './search.module.scss';
+import styles from './Search.module.scss';
 
 const Search = ({ searchValue, setSearchValue }) => {
 

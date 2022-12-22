@@ -7,7 +7,7 @@ const Skeleton = () => (
             className="pizza-block"
             speed={2}
             width={280}
-            height={500}
+            height={460}
             viewBox="0 0 280 500"
             backgroundColor="#f3f3f3"
             foregroundColor="#ecebeb"
