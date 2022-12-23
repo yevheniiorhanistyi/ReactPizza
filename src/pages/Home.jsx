@@ -1,5 +1,6 @@
 import React from "react";
 import { SearchContext } from '../components/App';
+import { useSelector } from 'react-redux';
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -7,10 +8,11 @@ import Search from "../components/Search";
 import PaginatedItems from "../components/PaginatedItems";
 
 const Home = () => {
+    const categoryId = useSelector((state) => state.filter.categoryId);
     const { searchValue } = React.useContext(SearchContext);
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-    const [categoryId, setCategoryId] = React.useState(0);
+    // const [categoryId, setCategoryId] = React.useState(0);
     const [sortType, setSortType] = React.useState({
         name: 'Popularność',
         sortProperty: 'rating'
@@ -49,7 +51,7 @@ const Home = () => {
                 <Sort value={sortType} onChangeSort={(id) => setSortType(id)} />
             </div>
             <Search />
-            <PaginatedItems pizzas={pizzas} isLoading={isLoading}/>
+            <PaginatedItems pizzas={pizzas} isLoading={isLoading} />
         </div>
     )
 }
