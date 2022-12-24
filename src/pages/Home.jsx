@@ -2,6 +2,7 @@ import React from "react";
 import { SearchContext } from '../components/App';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
+
 import axios from "axios";
 
 import Categories from '../components/Categories';
@@ -20,7 +21,6 @@ const Home = () => {
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id));
     }
-
 
     React.useEffect(() => {
         setIsLoading(true);
