@@ -2,6 +2,7 @@ import React from "react";
 import { SearchContext } from '../components/App';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
+import axios from "axios";
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -27,14 +28,12 @@ const Home = () => {
         const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
 
-        fetch(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`)
-            .then((res) => {
-                return res.json()
-            })
-            .then(json => {
-                setItems(json);
+        axios.get(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`)
+            .then((response) => {
+                setItems(response.data);
                 setIsLoading(false);
             })
+
         window.scrollTo(0, 0);
 
     }, [categoryId, sort.sortProperty, searchValue])
