@@ -52,7 +52,7 @@ const Home = () => {
                 <Sort />
             </div>
             <Search />
-            <PaginatedItems pizzas={pizzas} isLoading={isLoading} />
+            <PaginatedItems pizzas={pizzas} isLoading={isLoading} setIsLoading={setIsLoading} />
         </div>
     )
 }

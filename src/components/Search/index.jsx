@@ -15,14 +15,16 @@ const Search = () => {
         setValue(event.target.value);
         updateSearchValue(event.target.value);
     };
-
+    // eslint-disable-next-line
     const updateSearchValue = useCallback(
         debounce((str) => {
             setSearchValue(str)
         }, 150),
-        [])
+
+        []);
 
     const onClickClear = () => {
+        setValue('');
         setSearchValue('');
         inputRef.current.focus();
     }
