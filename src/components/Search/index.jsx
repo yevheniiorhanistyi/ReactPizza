@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { SearchContext } from '../App';
 
 import debounce from 'lodash.debounce';
@@ -15,13 +15,11 @@ const Search = () => {
         setValue(event.target.value);
         updateSearchValue(event.target.value);
     };
-    // eslint-disable-next-line
-    const updateSearchValue = useCallback(
+
+    const updateSearchValue = React.useRef(
         debounce((str) => {
             setSearchValue(str)
-        }, 150),
-
-        []);
+        }, 1000)).current;
 
     const onClickClear = () => {
         setValue('');
