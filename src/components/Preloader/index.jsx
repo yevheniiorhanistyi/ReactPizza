@@ -1,10 +1,13 @@
-
 import preloadImg from '../../assets/img/Preloader.svg';
+
+import styles from './Preloader.module.scss';
 
 const Preloader = () => {
     return (
-        <div>
-            <img src={preloadImg} alt="Preload" />
+        <div className={styles.root}>
+            <div className={styles.wrapper}>
+                <img className={styles.image} src={preloadImg} alt="Preload" />
+            </div>
         </div>
     )
 }

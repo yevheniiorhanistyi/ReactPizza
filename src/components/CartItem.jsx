@@ -21,7 +21,7 @@ const CartItem = ({ id, title, price, count, imageUrl }) => {
 
     return (
         <div className="cart__item">
-            <div className="cart-left">
+            <div className="cart-wrapper cart-wrapper--left">
                 <div className="cart__item-img">
                     <img className="pizza-block__image"
                         src={imageUrl}
@@ -57,7 +57,7 @@ const CartItem = ({ id, title, price, count, imageUrl }) => {
                     </button>
                 </div>
             </div>
-            <div className="cart-right">
+            <div className="cart-wrapper cart-wrapper--right">
                 <div className="cart__item-price">
                     <b>{price * count} ₽</b>
                 </div>
