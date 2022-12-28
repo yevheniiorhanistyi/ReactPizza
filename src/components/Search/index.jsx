@@ -8,7 +8,7 @@ import styles from './Search.module.scss';
 
 const Search = () => {
     const { setSearchValue } = React.useContext(SearchContext);
-    const [value, setValue] = useState();
+    const [value, setValue] = useState('');
     const inputRef = useRef();
 
     const onChangeInput = (event) => {
@@ -19,7 +19,7 @@ const Search = () => {
     const updateSearchValue = React.useRef(
         debounce((str) => {
             setSearchValue(str)
-        }, 1000)).current;
+        }, 250)).current;
 
     const onClickClear = () => {
         setValue('');
