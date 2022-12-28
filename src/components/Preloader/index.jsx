@@ -1,10 +1,10 @@
 
-import preloadImage from '../../assets/img/Preloader.svg';
+import preloadImg from '../../assets/img/Preloader.svg';
 
 const Preloader = () => {
-    return(
+    return (
         <div>
-            <img src={preloadImage} alt="Preload image" />
+            <img src={preloadImg} alt="Preload" />
         </div>
     )
 }
