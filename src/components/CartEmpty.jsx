@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+
+import Preloader from './Preloader';
 import cartEmptyImg from '../assets/img/empty-cart.png'
 
 const CartEmpty = () => {
