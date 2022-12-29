@@ -1,27 +1,8 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setLoading } from '../redux/slices/preloadSlice';
 
 import cartEmptyImg from '../assets/img/empty-cart.png'
 
 const CartEmpty = () => {
-    const dispatch = useDispatch();
-
-    const loading = () => {
-        setTimeout(() => {
-            dispatch(setLoading(false))
-        }, 1200);
-    }
-
-    useEffect(() => {
-        loading();
-        return () => {
-            clearTimeout(loading);
-            dispatch(setLoading(true));
-        }
-        // eslint-disable-next-line
-    }, [])
 
     return (
         <div className="container container--cart">
