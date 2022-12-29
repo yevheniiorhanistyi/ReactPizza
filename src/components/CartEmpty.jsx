@@ -1,42 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../redux/slices/preloadSlice';
 
-import Preloader from './Preloader';
 import cartEmptyImg from '../assets/img/empty-cart.png'
 
 const CartEmpty = () => {
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
 
-    const load = () => {
+    const loading = () => {
         setTimeout(() => {
-            setLoading(false)
+            dispatch(setLoading(false))
         }, 1200);
     }
 
     useEffect(() => {
-        load();
+        loading();
         return () => {
-            clearTimeout(load);
+            clearTimeout(loading);
+            dispatch(setLoading(true));
         }
+        // eslint-disable-next-line
     }, [])
 
     return (
-        <>
-            {loading && <Preloader />}
-            <div className="container container--cart">
-                <div className="cart cart--empty">
-                    <h2>Корзина пустая <span>😕</span></h2>
-                    <p>
-                        Вероятней всего, вы не заказывали ещё пиццу.<br />
-                        Для того, чтобы заказать пиццу, перейди на главную страницу.
-                    </p>
-                    <img className='cart__image' src={cartEmptyImg} alt="Empty cart" />
-                    <Link to="/" className="button button--black">
-                        <span>Вернуться назад</span>
-                    </Link>
-                </div>
+        <div className="container container--cart">
+            <div className="cart cart--empty">
+                <h2>Корзина пустая <span>😕</span></h2>
+                <p>
+                    Вероятней всего, вы не заказывали ещё пиццу.<br />
+                    Для того, чтобы заказать пиццу, перейди на главную страницу.
+                </p>
+                <img className='cart__image' src={cartEmptyImg} alt="Empty cart" />
+                <Link to="/" className="button button--black">
+                    <span>Вернуться назад</span>
+                </Link>
             </div>
-        </>
+        </div>
     )
 }
 

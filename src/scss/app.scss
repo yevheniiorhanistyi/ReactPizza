@@ -32,6 +32,9 @@ body {
   position: relative;
   padding: 30px 0;
 
+  @media (min-width: 1400px) {
+    min-height: 775px;
+  }
 
   &__items {
     display: grid;
