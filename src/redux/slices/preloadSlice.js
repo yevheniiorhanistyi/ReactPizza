@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const preloadSlice = createSlice({
-    name: 'load',
+    name: 'preload',
     initialState,
     reducers: {
         setLoading(state, action) {
