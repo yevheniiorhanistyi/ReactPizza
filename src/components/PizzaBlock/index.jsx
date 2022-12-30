@@ -29,6 +29,7 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
         <div className="pizza-block-wrapper">
             <div className="pizza-block">
                 <img
+                    style={{width: '260px', height: '260px'}}
                     className="pizza-block__image"
                     src={imageUrl}
                     alt="Pizza"

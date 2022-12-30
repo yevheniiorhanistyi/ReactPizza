@@ -1,8 +1,10 @@
 import React from "react";
+import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 
 import { clearItems } from "../redux/slices/cartSlice";
+import { setLoading } from "../redux/slices/preloadSlice";
 
 import CartItem from "../components/CartItem";
 import CartEmpty from '../components/CartEmpty';
@@ -15,6 +17,21 @@ const Cart = () => {
     const onClickClear = () => {
         dispatch(clearItems())
     }
+
+    const loading = () => {
+        setTimeout(() => {
+            dispatch(setLoading(false))
+        }, 1200);
+    }
+
+    useEffect(() => {
+        loading();
+        return () => {
+            clearTimeout(loading);
+            dispatch(setLoading(true));
+        }
+        // eslint-disable-next-line
+    }, [])
 
     if (!totalPrice) {
         return <CartEmpty />
@@ -80,9 +97,7 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
-
         </div>
-
     )
 }
 

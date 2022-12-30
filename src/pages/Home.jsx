@@ -1,7 +1,7 @@
 import React from "react";
-import { SearchContext } from '../components/App';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
+import { setLoading } from "../redux/slices/preloadSlice";
 
 import axios from "axios";
 
@@ -13,8 +13,7 @@ import PaginatedItems from "../components/PaginatedItems";
 const Home = () => {
     const dispatch = useDispatch();
 
-    const { categoryId, sort } = useSelector((state) => state.filter);
-    const { searchValue } = React.useContext(SearchContext);
+    const { categoryId, sort, searchValue } = useSelector((state) => state.filter);
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
@@ -22,8 +21,15 @@ const Home = () => {
         dispatch(setCategoryId(id));
     }
 
+    const loading = () => {
+        setTimeout(() => {
+            dispatch(setLoading(false))
+        }, 500);
+    }
+
     React.useEffect(() => {
 
+        loading();
         setIsLoading(true);
         const sortBy = sort.sortProperty.replace('-', '');
         const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -37,6 +43,10 @@ const Home = () => {
 
         window.scrollTo(0, 0);
 
+        return () => {
+            clearTimeout(loading);
+        }
+        // eslint-disable-next-line
     }, [categoryId, sort.sortProperty, searchValue]);
 
     const pizzas = items.filter((obj) => {
