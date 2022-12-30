@@ -21,7 +21,7 @@ const Cart = () => {
     const loading = () => {
         setTimeout(() => {
             dispatch(setLoading(false))
-        }, 1200);
+        }, 1000);
     }
 
     useEffect(() => {
