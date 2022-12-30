@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId } from '../redux/slices/filterSlice';
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
-
-import axios from "axios";
 
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
@@ -13,9 +12,8 @@ import PaginatedItems from "../components/PaginatedItems";
 const Home = () => {
     const dispatch = useDispatch();
 
+    const { items } = useSelector((state) => state.pizza);
     const { categoryId, sort, searchValue } = useSelector((state) => state.filter);
-    const [items, setItems] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true);
 
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id));
@@ -27,27 +25,31 @@ const Home = () => {
         }, 500);
     }
 
-    React.useEffect(() => {
-
-        loading();
-        setIsLoading(true);
+    const getPizzas = async () => {
         const sortBy = sort.sortProperty.replace('-', '');
         const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
+        const search = searchValue ? `&search=${searchValue}` : '';
 
-        axios.get(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`)
-            .then((response) => {
-                setItems(response.data);
-                setIsLoading(false);
-            })
+        dispatch(fetchPizzas({
+            sortBy,
+            order,
+            category,
+            search
+        }));
 
         window.scrollTo(0, 0);
+    }
+
+    React.useEffect(() => {
+        loading();
+        getPizzas();
 
         return () => {
             clearTimeout(loading);
         }
         // eslint-disable-next-line
-    }, [categoryId, sort.sortProperty, searchValue]);
+    }, []);
 
     const pizzas = items.filter((obj) => {
         if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -63,7 +65,7 @@ const Home = () => {
                 <Sort />
             </div>
             <Search />
-            <PaginatedItems pizzas={pizzas} isLoading={isLoading} setIsLoading={setIsLoading} />
+            <PaginatedItems pizzas={pizzas} />
         </div>
     )
 }
