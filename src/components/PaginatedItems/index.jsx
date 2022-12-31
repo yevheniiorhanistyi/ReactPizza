@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import PizzaBlock from '../PizzaBlock';
 import Skeleton from '../PizzaBlock/Skeleton';
+import ErrorMessage from '../ErrorMessage';
 
 import styles from './PaginatedItems.module.scss';
 
@@ -23,10 +24,21 @@ const PaginatedItems = ({ pizzas }) => {
         setItemOffset(newOffset);
     };
 
+    const renderItems = () => {
+        return ()
+    }
+
+    // const errorMessage = error ? <ErrorMessage /> : null;
+    // const spinner = loading ? <Spinner /> : null;
+    // const content = !(loading || error) ? items : null;
+
+    // {errorMessage || spinner || content}
+
     return (
         <>
+            <ErrorMessage />
             <div className="content__items">
-                {status === 'loading' ? skeletons : currentItems.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+                {/* {status === 'loading' ? skeletons : currentItems.map((obj) => <PizzaBlock key={obj.id} {...obj} />)} */}
             </div>
             <ReactPaginate
                 className={styles.root}
