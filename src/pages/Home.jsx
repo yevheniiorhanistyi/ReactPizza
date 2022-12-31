@@ -19,12 +19,6 @@ const Home = () => {
         dispatch(setCategoryId(id));
     }
 
-    const loading = () => {
-        setTimeout(() => {
-            dispatch(setLoading(false))
-        }, 500);
-    }
-
     const getPizzas = async () => {
         const sortBy = sort.sortProperty.replace('-', '');
         const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
@@ -42,11 +36,19 @@ const Home = () => {
     }
 
     React.useEffect(() => {
-        loading();
         getPizzas();
 
+        const onComponentLoaded = () => {
+            setTimeout(() => {
+                console.log('load');
+                dispatch(setLoading(false))
+            }, 500);
+        }
+
+        onComponentLoaded();
+
         return () => {
-            clearTimeout(loading);
+            clearTimeout(onComponentLoaded);
         }
         // eslint-disable-next-line
     }, []);
