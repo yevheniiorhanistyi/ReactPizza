@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { setCategoryId, selectFilter } from '../redux/slices/filterSlice';
+import { fetchPizzas, selectItems } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
 
 import Categories from '../components/Categories';
@@ -12,8 +12,8 @@ import PaginatedItems from "../components/PaginatedItems";
 const Home = () => {
     const dispatch = useDispatch();
 
-    const { items } = useSelector((state) => state.pizza);
-    const { categoryId, sort, searchValue } = useSelector((state) => state.filter);
+    const { items } = useSelector(selectItems);
+    const { categoryId, sort, searchValue } = useSelector(selectFilter);
 
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id));
@@ -40,7 +40,6 @@ const Home = () => {
 
         const onComponentLoaded = () => {
             setTimeout(() => {
-                console.log('load');
                 dispatch(setLoading(false))
             }, 500);
         }

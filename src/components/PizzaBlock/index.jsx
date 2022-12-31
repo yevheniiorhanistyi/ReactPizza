@@ -2,12 +2,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { addItem } from '../../redux/slices/cartSlice';
+import { selectCartItemById } from "../../redux/slices/cartSlice";
 
 const typeNames = ['тонкое', 'традиционное'];
 
 const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
     const dispatch = useDispatch();
-    const cartItem = useSelector(state => state.cart.items.find((obj) => obj.id === id));
+    const cartItem = useSelector(selectCartItemById(id));
     const [activeType, setActiveType] = React.useState(0);
     const [activeSize, setActiveSyze] = React.useState(0);
 
@@ -29,7 +30,7 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
         <div className="pizza-block-wrapper">
             <div className="pizza-block">
                 <img
-                    style={{width: '260px', height: '260px'}}
+                    style={{ width: '260px', height: '260px' }}
                     className="pizza-block__image"
                     src={imageUrl}
                     alt="Pizza"
@@ -41,7 +42,7 @@ const PizzaBlock = ({ id, title, price, imageUrl, sizes, types }) => {
                             types.map((type, i) => (
                                 <li
                                     onClick={() => setActiveType(i)}
-                                    className={activeType === type ? 'active' : ''}
+                                    className={activeType === type ? 'active' : types.length === 1 ? 'active' : ''}
                                     key={i}>
                                     {typeNames[type]}
                                 </li>))

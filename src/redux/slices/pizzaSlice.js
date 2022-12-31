@@ -38,7 +38,9 @@ export const pizzaSlice = createSlice({
             state.items = [];
         }
     }
-})
+});
+
+export const selectItems = (state) => state.pizza;
 
 export const { setItems } = pizzaSlice.actions
 

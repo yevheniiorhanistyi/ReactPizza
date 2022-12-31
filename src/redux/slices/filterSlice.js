@@ -23,7 +23,9 @@ export const filterSlice = createSlice({
             state.searchValue = action.payload;
         }
     },
-})
+});
+
+export const selectFilter = (state) => state.filter;
 
 export const { setCategoryId, setSort, setSearchValue } = filterSlice.actions
 
