@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.7",
     "typescript": "^4.9.4"
   }
 }

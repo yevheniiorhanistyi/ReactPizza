@@ -9,22 +9,22 @@ import styles from './Search.module.scss';
 const Search = () => {
     const dispatch = useDispatch();
     const [value, setValue] = useState('');
-    const inputRef = useRef();
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    const onChangeInput = (event) => {
+    const onChangeInput = (event: any) => {
         setValue(event.target.value);
         updateSearchValue(event.target.value);
     };
 
     const updateSearchValue = React.useRef(
-        debounce((str) => {
+        debounce((str: string) => {
             dispatch(setSearchValue(str))
         }, 250)).current;
 
     const onClickClear = () => {
         setValue('');
         dispatch(setSearchValue(''));
-        inputRef.current.focus();
+        inputRef.current?.focus();
     }
 
     return (
@@ -50,7 +50,7 @@ const Search = () => {
 
             {value && (
                 <svg
-                    onClick={() => onClickClear('')}
+                    onClick={() => onClickClear()}
                     className={styles.clearIcon}
                     data-name="Layer 1"
                     height="24"

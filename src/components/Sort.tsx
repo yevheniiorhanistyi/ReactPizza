@@ -1,27 +1,32 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from '../redux/slices/filterSlice';
+import { selectFilter } from '../redux/slices/filterSlice';
+
+type SortItem = {
+    name: string;
+    sortProperty: string;
+}
 
 
-
-const Sort = () => {
+const Sort: React.FC = () => {
     const dispatch = useDispatch();
-    const sort = useSelector(state => state.filter.sort);
+    const { sort } = useSelector(selectFilter);
     const [open, setOpen] = useState(false);
-    const sortRef = useRef()
+    const sortRef = useRef<HTMLDivElement>(null);
 
-    const list = [
+    const sortList: SortItem[] = [
         { name: 'Popularność', sortProperty: 'rating' },
         { name: 'Ceny rosnąco', sortProperty: '-price' },
         { name: 'Ceny malejąco', sortProperty: 'price' }];
 
-    const onClickSelectedItem = (obj) => {
+    const onClickSelectedItem = (obj: SortItem) => {
         dispatch(setSort(obj))
         setOpen(false);
     }
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
+        const handleClickOutside = (event: any) => {
             if (!event.path.includes(sortRef.current)) {
                 setOpen(false);
             }
@@ -56,7 +61,7 @@ const Sort = () => {
                 open && (
                     <div className="sort__popup">
                         <ul>
-                            {list.map((obj, i) => (
+                            {sortList.map((obj, i) => (
                                 <li
                                     onClick={() => onClickSelectedItem(obj)}
                                     className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
