@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux/es/exports';
 import { selectCart } from '../redux/slices/cartSlice';
 
-import pizzaLogo1 from '../assets/img/pizza-logo.png';
+import pizzaLogo from '../assets/img/pizza-logo.png';
 
 
 const Header = () => {
@@ -15,7 +15,7 @@ const Header = () => {
             <div className="container">
                 <Link to='/'>
                     <div className="header__logo">
-                        <img width={56} src={pizzaLogo1} alt="Pizza logo" />
+                        <img width={56} src={pizzaLogo} alt="Pizza logo" />
                         <h1>React Pizza</h1>
                     </div>
                 </Link>
