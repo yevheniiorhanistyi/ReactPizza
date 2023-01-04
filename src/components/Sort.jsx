@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSort } from '../redux/slices/filterSlice';
 
@@ -7,8 +7,8 @@ import { setSort } from '../redux/slices/filterSlice';
 const Sort = () => {
     const dispatch = useDispatch();
     const sort = useSelector(state => state.filter.sort);
-    const [open, setOpen] = React.useState(false);
-    const sortRef = React.useRef()
+    const [open, setOpen] = useState(false);
+    const sortRef = useRef()
 
     const list = [
         { name: 'Popularność', sortProperty: 'rating' },
@@ -20,7 +20,7 @@ const Sort = () => {
         setOpen(false);
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.path.includes(sortRef.current)) {
                 setOpen(false);

@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch } from 'react-redux';
 import { setLoading } from "../redux/slices/preloadSlice";
 import NotFoundBlock from "../components/NotFoundBlock";
