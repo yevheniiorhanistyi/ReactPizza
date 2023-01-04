@@ -14,6 +14,8 @@ export const preloadSlice = createSlice({
     },
 })
 
+export const selectLoading = (state) => state.preload;
+
 export const { setLoading } = preloadSlice.actions
 
 export default preloadSlice.reducer

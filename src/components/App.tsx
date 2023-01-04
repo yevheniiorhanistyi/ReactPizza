@@ -1,6 +1,7 @@
-import React from 'react';
 import { Routes, Route } from 'react-router';
 import { useSelector } from 'react-redux';
+
+import { selectLoading } from '../redux/slices/preloadSlice';
 
 import Preloader from './Preloader';
 import Header from './Header';
@@ -12,7 +13,7 @@ import '../scss/app.scss';
 
 function App() {
 
-  const { loading } = useSelector((state) => state.preload);
+  const { loading } = useSelector(selectLoading);
 
   return (
     <div className="wrapper">
