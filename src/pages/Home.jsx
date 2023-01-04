@@ -50,7 +50,7 @@ const Home = () => {
             clearTimeout(onComponentLoaded);
         }
         // eslint-disable-next-line
-    }, []);
+    }, [categoryId, sort, searchValue]);
 
     const pizzas = items.filter((obj) => {
         if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {

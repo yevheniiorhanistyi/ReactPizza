@@ -11,7 +11,7 @@ import NotFound from '../pages/NotFound';
 
 import '../scss/app.scss';
 
-function App() {
+const App: React.FC = () => {
 
   const { loading } = useSelector(selectLoading);
 

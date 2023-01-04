@@ -6,12 +6,12 @@ import debounce from 'lodash.debounce';
 
 import styles from './Search.module.scss';
 
-const Search = () => {
+const Search: React.FC = () => {
     const dispatch = useDispatch();
     const [value, setValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const onChangeInput = (event: any) => {
+    const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
         updateSearchValue(event.target.value);
     };
