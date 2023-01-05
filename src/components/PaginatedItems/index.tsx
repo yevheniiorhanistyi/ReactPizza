@@ -2,6 +2,9 @@ import { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../../redux/slices/pizzaSlice';
+import { selectFilter } from '../../redux/slices/filterSlice';
+
+import { PizzaBlockProps } from '../PizzaBlock';
 
 import PizzaBlock from '../PizzaBlock';
 import Skeleton from '../PizzaBlock/Skeleton';
@@ -9,13 +12,19 @@ import ErrorMessage from '../ErrorMessage';
 
 import styles from './PaginatedItems.module.scss';
 
-type PaginatedItemsProps = {
-    pizzas: any;
-}
-
-const PaginatedItems: React.FC<PaginatedItemsProps> = ({ pizzas }) => {
+const PaginatedItems: React.FC = () => {
     const [itemOffset, setItemOffset] = useState(0);
+    const { items } = useSelector(selectItems);
+    const { searchValue } = useSelector(selectFilter);
     const { loading, error } = useSelector(selectItems);
+
+    const pizzas = items.filter((obj: PizzaBlockProps) => {
+
+        if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+            return true;
+        }
+        return false;
+    });
 
     const endOffset = itemOffset + 4;
     const currentItems = pizzas.slice(itemOffset, endOffset);
@@ -27,7 +36,8 @@ const PaginatedItems: React.FC<PaginatedItemsProps> = ({ pizzas }) => {
         setItemOffset(newOffset);
     };
 
-    const renderItems = (content: any) => {
+    const renderItems: React.FC = (content: any) => {
+
         return (
             <div className="content__items">
                 {content}
@@ -37,7 +47,7 @@ const PaginatedItems: React.FC<PaginatedItemsProps> = ({ pizzas }) => {
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const skeletons = loading ? renderItems([...new Array(4)].map((_, index) => <Skeleton key={index} />)) : null;
-    const content = !(loading || error) ? renderItems(currentItems.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)) : null;
+    const content = !(loading || error) ? renderItems(currentItems.map((obj: PizzaBlockProps) => <PizzaBlock key={obj.id} {...obj} />)) : null;
 
     return (
         <>

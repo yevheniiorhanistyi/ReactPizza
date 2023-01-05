@@ -6,12 +6,14 @@ import { selectCartItemById } from "../../redux/slices/cartSlice";
 
 const typeNames: string[] = ['тонкое', 'традиционное'];
 
-type PizzaBlockProps = {
-    id: string,
-    title: string,
-    price: number,
+export type PizzaBlockProps = {
+    category: string,
+    id: number,
     imageUrl: string,
+    price: number,
+    rating: number,
     sizes: number[],
+    title: string,
     types: number[]
 };
 

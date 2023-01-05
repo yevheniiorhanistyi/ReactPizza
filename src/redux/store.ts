@@ -12,4 +12,6 @@ export const store = configureStore({
         filter,
         cart,
     },
-})
+});
+
+export type RootState = ReturnType<typeof store.getState>

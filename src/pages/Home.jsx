@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, selectFilter } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectItems } from "../redux/slices/pizzaSlice";
+import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
 
 import Categories from '../components/Categories';
@@ -11,8 +11,6 @@ import PaginatedItems from "../components/PaginatedItems";
 
 const Home = () => {
     const dispatch = useDispatch();
-
-    const { items } = useSelector(selectItems);
     const { categoryId, sort, searchValue } = useSelector(selectFilter);
 
     const onChangeCategory = (id) => {
@@ -52,13 +50,6 @@ const Home = () => {
         // eslint-disable-next-line
     }, [categoryId, sort, searchValue]);
 
-    const pizzas = items.filter((obj) => {
-        if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-            return true;
-        }
-        return false;
-    });
-
     return (
         <div className="container">
             <div className="content__top">
@@ -66,7 +57,7 @@ const Home = () => {
                 <Sort />
             </div>
             <Search />
-            <PaginatedItems pizzas={pizzas} />
+            <PaginatedItems />
         </div>
     )
 }

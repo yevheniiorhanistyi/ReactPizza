@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../store';
 
 const initialState = {
     loading: true
@@ -14,7 +15,7 @@ export const preloadSlice = createSlice({
     },
 })
 
-export const selectLoading = (state) => state.preload;
+export const selectLoading = (state: RootState) => state.preload;
 
 export const { setLoading } = preloadSlice.actions
 

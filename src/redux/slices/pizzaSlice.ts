@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { RootState } from '../store';
 import axios from 'axios';
 
 export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params) => {
@@ -7,7 +8,7 @@ export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (pa
     );
     return data;
 }
-)
+);
 
 const initialState = {
     items: [],
@@ -40,8 +41,9 @@ export const pizzaSlice = createSlice({
     }
 });
 
-export const selectItems = (state) => state.pizza;
 
-export const { setItems } = pizzaSlice.actions
+export const selectItems = (state: RootState) => state.pizza;
 
-export default pizzaSlice.reducer
+export const { setItems } = pizzaSlice.actions;
+
+export default pizzaSlice.reducer;
