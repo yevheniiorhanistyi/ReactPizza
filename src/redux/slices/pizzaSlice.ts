@@ -2,15 +2,32 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 import axios from 'axios';
 
-export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params) => {
+type PizzaItem = {
+    category: string;
+    id: string;
+    imageUrl: string;
+    price: number;
+    rating: number;
+    sizes: number[];
+    title: string;
+    types: number[];
+}
+
+interface PizzaSliceState {
+    items: PizzaItem[];
+    loading: boolean;
+    error: boolean;
+};
+
+export const fetchPizzas = createAsyncThunk<PizzaItem[], Record<string, string>>('pizza/fetchPizzasStatus', async (params) => {
     const { sortBy, order, category } = params;
-    const { data } = await axios.get(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`
+    const { data } = await axios.get<PizzaItem[]>(`https://639b4f9ed5141501975219ce.mockapi.io/pizzas?${category}&sortBy=${sortBy}&order=${order}`
     );
     return data;
 }
 );
 
-const initialState = {
+const initialState: PizzaSliceState = {
     items: [],
     loading: true,
     error: false
@@ -24,20 +41,21 @@ export const pizzaSlice = createSlice({
             state.items = action.payload;
         }
     },
-    extraReducers: {
-        [fetchPizzas.pending]: (state) => {
+
+    extraReducers: (builder) => {
+        builder.addCase(fetchPizzas.pending, (state) => {
             state.loading = true;
             state.items = [];
-        },
-        [fetchPizzas.fulfilled]: (state, action) => {
+        });
+        builder.addCase(fetchPizzas.fulfilled, (state, action) => {
             state.loading = false;
             state.items = action.payload;
-        },
-        [fetchPizzas.rejected]: (state) => {
+        });
+        builder.addCase(fetchPizzas.rejected, (state) => {
             state.error = true;
             state.loading = false;
             state.items = [];
-        }
+        });
     }
 });
 

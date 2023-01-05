@@ -6,7 +6,7 @@ import { selectFilter } from '../redux/slices/filterSlice';
 type SortItem = {
     name: string;
     sortProperty: string;
-}
+};
 
 
 const Sort: React.FC = () => {
@@ -23,7 +23,7 @@ const Sort: React.FC = () => {
     const onClickSelectedItem = (obj: SortItem) => {
         dispatch(setSort(obj))
         setOpen(false);
-    }
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

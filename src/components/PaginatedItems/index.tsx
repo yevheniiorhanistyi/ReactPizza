@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 import { selectItems } from '../../redux/slices/pizzaSlice';
 import { selectFilter } from '../../redux/slices/filterSlice';
 
-import { PizzaBlockProps } from '../PizzaBlock';
-
 import PizzaBlock from '../PizzaBlock';
 import Skeleton from '../PizzaBlock/Skeleton';
 import ErrorMessage from '../ErrorMessage';
@@ -18,7 +16,7 @@ const PaginatedItems: React.FC = () => {
     const { searchValue } = useSelector(selectFilter);
     const { loading, error } = useSelector(selectItems);
 
-    const pizzas = items.filter((obj: PizzaBlockProps) => {
+    const pizzas = items.filter((obj) => {
 
         if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
             return true;
@@ -47,7 +45,7 @@ const PaginatedItems: React.FC = () => {
 
     const errorMessage = error ? <ErrorMessage /> : null;
     const skeletons = loading ? renderItems([...new Array(4)].map((_, index) => <Skeleton key={index} />)) : null;
-    const content = !(loading || error) ? renderItems(currentItems.map((obj: PizzaBlockProps) => <PizzaBlock key={obj.id} {...obj} />)) : null;
+    const content = !(loading || error) ? renderItems(currentItems.map((obj) => <PizzaBlock key={obj.id} {...obj} />)) : null;
 
     return (
         <>

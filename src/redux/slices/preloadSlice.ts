@@ -1,7 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 
-const initialState = {
+interface PreloadSliceState {
+    loading: boolean;
+}
+
+const initialState: PreloadSliceState = {
     loading: true
 };
 
