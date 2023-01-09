@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux/es/exports";
@@ -10,27 +10,32 @@ import { setLoading } from "../redux/slices/preloadSlice";
 import CartItem from "../components/CartItem";
 import CartEmpty from '../components/CartEmpty';
 
-const Cart = () => {
+const Cart: React.FC = () => {
     const dispatch = useDispatch();
     const { items, totalPrice } = useSelector(selectCart);
     const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+    const refTimer = useRef<number | null>(null);
+
+    const startTimer = () => {
+        if (refTimer.current !== null) return;
+        refTimer.current = window.setTimeout(() => {
+            dispatch(setLoading(false))
+        }, 1000);
+    };
 
     const onClickClear = () => {
         dispatch(clearItems())
-    }
+    };
 
     useEffect(() => {
 
-        const onComponentLoaded = () => {
-            setTimeout(() => {
-                dispatch(setLoading(false))
-            }, 1000);
-        }
-
-        onComponentLoaded();
+        startTimer();
 
         return () => {
-            clearTimeout(onComponentLoaded);
+            if (refTimer.current !== null) {
+                window.clearTimeout(refTimer.current);
+                refTimer.current = null;
+            }
             dispatch(setLoading(true));
         }
         // eslint-disable-next-line

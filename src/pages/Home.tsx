@@ -1,6 +1,8 @@
-import React from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef, useCallback } from "react";
+import { useSelector } from 'react-redux';
+
 import { setCategoryId, selectFilter } from '../redux/slices/filterSlice';
+import { useAppDispatch } from "../redux/store";
 import { fetchPizzas } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
 
@@ -9,13 +11,23 @@ import Sort from '../components/Sort';
 import Search from "../components/Search";
 import PaginatedItems from "../components/PaginatedItems";
 
-const Home = () => {
-    const dispatch = useDispatch();
+const Home: React.FC = () => {
+    const dispatch = useAppDispatch();
     const { categoryId, sort, searchValue } = useSelector(selectFilter);
+    const refTimer = useRef<number | null>(null);
 
-    const onChangeCategory = (id) => {
+    const startTimer = () => {
+        if (refTimer.current !== null) return;
+        refTimer.current = window.setTimeout(() => {
+            dispatch(setLoading(false))
+        }, 1000);
+    };
+
+    const onChangeCategory = useCallback((id: number) => {
         dispatch(setCategoryId(id));
-    }
+        // eslint-disable-next-line
+    }, []);
+
 
     const getPizzas = async () => {
         const sortBy = sort.sortProperty.replace('-', '');
@@ -23,29 +35,26 @@ const Home = () => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const search = searchValue ? `&search=${searchValue}` : '';
 
-        dispatch(fetchPizzas({
-            sortBy,
-            order,
-            category,
-            search
-        }));
+        dispatch(
+            fetchPizzas({
+                sortBy,
+                order,
+                category,
+                search
+            }));
 
         window.scrollTo(0, 0);
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         getPizzas();
-
-        const onComponentLoaded = () => {
-            setTimeout(() => {
-                dispatch(setLoading(false))
-            }, 500);
-        }
-
-        onComponentLoaded();
+        startTimer();
 
         return () => {
-            clearTimeout(onComponentLoaded);
+            if (refTimer.current !== null) {
+                window.clearTimeout(refTimer.current);
+                refTimer.current = null;
+            }
         }
         // eslint-disable-next-line
     }, [categoryId, sort, searchValue]);
