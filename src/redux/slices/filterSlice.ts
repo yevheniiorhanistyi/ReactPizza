@@ -10,10 +10,12 @@ interface FilterSliceState {
     searchValue: string;
     categoryId: number;
     sort: Sort;
+    currentPage: number;
 };
 
 const initialState: FilterSliceState = {
     categoryId: 0,
+    currentPage: 1,
     searchValue: '',
     sort: {
         name: 'Popularność',
@@ -31,6 +33,9 @@ export const filterSlice = createSlice({
         setSort(state, action: PayloadAction<Sort>) {
             state.sort = action.payload;
         },
+        setCurrentPage(state, action: PayloadAction<number>) {
+            state.currentPage = action.payload;
+        },
         setSearchValue(state, action: PayloadAction<string>) {
             state.searchValue = action.payload;
         }
@@ -39,6 +44,6 @@ export const filterSlice = createSlice({
 
 export const selectFilter = (state: RootState) => state.filter;
 
-export const { setCategoryId, setSort, setSearchValue } = filterSlice.actions
+export const { setCategoryId, setSort, setSearchValue, setCurrentPage } = filterSlice.actions
 
 export default filterSlice.reducer

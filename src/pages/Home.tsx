@@ -3,17 +3,19 @@ import { useSelector } from 'react-redux';
 
 import { setCategoryId, selectFilter } from '../redux/slices/filterSlice';
 import { useAppDispatch } from "../redux/store";
-import { fetchPizzas } from "../redux/slices/pizzaSlice";
+import { fetchPizzas, selectItems } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
 
+import ErrorMessage from "../components/ErrorMessage";
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import Search from "../components/Search";
-import PaginatedItems from "../components/PaginatedItems";
+import Paginate from "../components/Paginate";
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { categoryId, sort, searchValue } = useSelector(selectFilter);
+    const { categoryId, sort, searchValue, currentPage } = useSelector(selectFilter);
+    const { error, items } = useSelector(selectItems);
     const refTimer = useRef<number | null>(null);
 
     const startTimer = () => {
@@ -27,7 +29,6 @@ const Home: React.FC = () => {
         dispatch(setCategoryId(id));
         // eslint-disable-next-line
     }, []);
-
 
     const getPizzas = async () => {
         const sortBy = sort.sortProperty.replace('-', '');
@@ -57,17 +58,30 @@ const Home: React.FC = () => {
             }
         }
         // eslint-disable-next-line
-    }, [categoryId, sort, searchValue]);
+    }, [categoryId, sort, searchValue, currentPage]);
+
+    const pizzas = items.filter((obj) => {
+        if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+            return true;
+        }
+        return false;
+    });
 
     return (
-        <div className="container">
-            <div className="content__top">
-                <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-                <Sort />
-            </div>
-            <Search />
-            <PaginatedItems />
-        </div>
+        <>
+            {error ?
+                <ErrorMessage />
+                :
+                <div className="container">
+                    <div className="content__top">
+                        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+                        <Sort />
+                    </div>
+                    <Search />
+                    <Paginate pizzas={pizzas} />
+                </div>
+            }
+        </>
     )
 }
 

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { RootState } from '../store';
 import axios from 'axios';
 
-type PizzaItem = {
+export type PizzaItem = {
     category: string;
     id: string;
     imageUrl: string;

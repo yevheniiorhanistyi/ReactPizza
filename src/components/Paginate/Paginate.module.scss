@@ -1,0 +1,57 @@
+.root {
+
+    @media (max-width: 1400px) {
+        text-align: center;
+    }
+
+    li {
+        display: inline-block;
+    }
+}
+
+.previous,
+.next {
+    display: inline-block;
+}
+
+.button {
+    display: inline-block;
+    text-align: center;
+    line-height: 45px;
+    color: #fe5f1e;
+
+    width: 45px;
+    height: 45px;
+
+    margin-right: 10px;
+    border: 1px solid #fe5f1e;
+    border-radius: 30px;
+
+    user-select: none;
+
+    background-color: #fff;
+
+    cursor: pointer;
+    transition: background-color .2s linear, color .2s linear;
+
+    &:hover {
+        background-color: #fe5f1e;
+        color: #fff;
+    }
+
+    &:disabled {
+        color: #d0d0d0;
+        border: 1px solid #d0d0d0;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+.selected {
+    .button {
+        background-color: #fe5f1e;
+        color: #fff;
+    }
+}
