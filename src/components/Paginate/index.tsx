@@ -11,19 +11,17 @@ import styles from './Paginate.module.scss';
 
 type PaginateProps = {
     pizzas: PizzaItem[];
-    pageItemsOffset: number;
+    paginateItemOffset: number;
     onChangePage: (props: number) => void;
 };
 
-const Paginate: React.FC<PaginateProps> = ({ pizzas, pageItemsOffset, onChangePage }) => {
-
-    console.log(pageItemsOffset)
+const Paginate: React.FC<PaginateProps> = ({ pizzas, paginateItemOffset, onChangePage }) => {
 
     const { currentPage } = useSelector(selectFilter);
     const { error, loading } = useSelector(selectItems);
 
-    const endOffset = pageItemsOffset + 4;
-    const currentItems = pizzas.slice(pageItemsOffset, endOffset);
+    const endOffset = paginateItemOffset + 4;
+    const currentItems = pizzas.slice(paginateItemOffset, endOffset);
 
     const pageCount = Math.ceil(pizzas.length / 4);
 
@@ -41,7 +39,7 @@ const Paginate: React.FC<PaginateProps> = ({ pizzas, pageItemsOffset, onChangePa
                 <li className={styles.previous} >
                     <button
                         onClick={() => onChangePage(currentPage - 1)}
-                        disabled={pageItemsOffset === 0}
+                        disabled={paginateItemOffset === 0}
                         className={styles.button}
                         type='button'>&lt;
                     </button>

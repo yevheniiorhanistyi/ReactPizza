@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     const dispatch = useAppDispatch();
     const { categoryId, sort, searchValue, currentPage } = useSelector(selectFilter);
     const { error, items } = useSelector(selectItems);
-    const [pageItemsOffset, setPageItemsOffset] = useState(0);
+    const [paginateItemOffset, setPaginateItemOffset] = useState(0);
     const refTimer = useRef<number | null>(null);
 
     const startTimer = () => {
@@ -28,18 +28,18 @@ const Home: React.FC = () => {
 
     const onChangeCategory = useCallback((id: number) => {
         dispatch(setCategoryId(id));
-        
-        dispatch(setCurrentPage(0));
-        setPageItemsOffset(0);
         // eslint-disable-next-line
     }, [categoryId, searchValue]);
 
     const onChangePage = (page: number) => {
-        console.log('run change');
-        
-        const newOffset = (page * 4) % pizzas.length;
-        dispatch(setCurrentPage(page));
-        setPageItemsOffset(newOffset);
+        if(page) {
+            const newOffset = (page * 4) % pizzas.length;
+            dispatch(setCurrentPage(page));
+            setPaginateItemOffset(newOffset);
+        } else {
+            dispatch(setCurrentPage(0));
+            setPaginateItemOffset(0);
+        }
     };
 
     const getPizzas = async () => {
@@ -72,6 +72,11 @@ const Home: React.FC = () => {
         // eslint-disable-next-line
     }, [categoryId, sort, searchValue, currentPage]);
 
+    useEffect(() => {
+        onChangePage(0);
+        // eslint-disable-next-line
+    }, [categoryId, searchValue])
+
     const pizzas = items.filter((obj) => {
         if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
             return true;
@@ -90,7 +95,7 @@ const Home: React.FC = () => {
                         <Sort />
                     </div>
                     <Search />
-                    <Paginate pizzas={pizzas} pageItemsOffset={pageItemsOffset} onChangePage={onChangePage} />
+                    <Paginate pizzas={pizzas} paginateItemOffset={paginateItemOffset} onChangePage={onChangePage} />
                 </div>
             }
         </>
