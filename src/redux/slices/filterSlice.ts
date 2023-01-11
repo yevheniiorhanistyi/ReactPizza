@@ -15,7 +15,7 @@ interface FilterSliceState {
 
 const initialState: FilterSliceState = {
     categoryId: 0,
-    currentPage: 1,
+    currentPage: 0,
     searchValue: '',
     sort: {
         name: 'Popularność',

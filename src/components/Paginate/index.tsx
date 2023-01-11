@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectItems } from '../../redux/slices/pizzaSlice';
-import { selectFilter, setCurrentPage } from '../../redux/slices/filterSlice';
-import { useAppDispatch } from '../../redux/store';
+import { selectFilter } from '../../redux/slices/filterSlice';
 
 import { PizzaItem } from '../../redux/slices/pizzaSlice';
 
@@ -13,28 +11,21 @@ import styles from './Paginate.module.scss';
 
 type PaginateProps = {
     pizzas: PizzaItem[];
+    pageItemsOffset: number;
+    onChangePage: (props: number) => void;
 };
 
-const Paginate: React.FC<PaginateProps> = ({ pizzas }) => {
-    const dispatch = useAppDispatch();
-    const [itemOffset, setItemOffset] = useState(0);
-    const { searchValue, currentPage } = useSelector(selectFilter);
-    const { error, loading, items } = useSelector(selectItems);
-    console.log('itemOffset: ' + itemOffset)
-    const endOffset = itemOffset + 4;
-    const currentItems = pizzas.slice(itemOffset, endOffset);
+const Paginate: React.FC<PaginateProps> = ({ pizzas, pageItemsOffset, onChangePage }) => {
+
+    const { currentPage } = useSelector(selectFilter);
+    const { error, loading } = useSelector(selectItems);
+
+    const endOffset = pageItemsOffset + 4;
+    const currentItems = pizzas.slice(pageItemsOffset, endOffset);
+
     const pageCount = Math.ceil(pizzas.length / 4);
 
-    const handlePageClick = (page: number) => {
-
-        const newOffset = Math.ceil((page * pageCount) / pizzas.length);
-
-        console.log('pizzas.length: ' + pizzas.length)
-        console.log('newOffset: ' + newOffset)
-        dispatch(setCurrentPage(page));
-        setItemOffset(newOffset);
-    };
-
+    const pages = Array.from({ length: pageCount }, (v, i) => i + 1);
     const skeletons = loading ? [...new Array(4)].map((_, index) => <Skeleton key={index} />) : null;
     const content = !(loading || error) ? currentItems.map((obj) => <PizzaBlock key={obj.id} {...obj} />) : null;
 
@@ -47,17 +38,27 @@ const Paginate: React.FC<PaginateProps> = ({ pizzas }) => {
             <ul className={styles.root}>
                 <li className={styles.previous} >
                     <button
-                        onClick={() => handlePageClick(currentPage - 1)}
+                        onClick={() => onChangePage(currentPage - 1)}
+                        disabled={pageItemsOffset === 0}
                         className={styles.button}
                         type='button'>&lt;
                     </button>
                 </li>
-                <li className={styles.selected}>
-                    <button className={styles.button} type='button'>{currentPage}</button>
-                </li>
+                {
+                    pages.map((item, index) => (
+                        <li className={currentPage === index ? styles.selected : ''}
+                            key={item}>
+                            <button
+                                onClick={() => onChangePage(index)}
+                                className={styles.button}
+                                type='button'>{item}
+                            </button>
+                        </li>))
+                }
                 <li className={styles.next} >
                     <button
-                        onClick={() => handlePageClick(currentPage + 1)}
+                        onClick={() => onChangePage(currentPage + 1)}
+                        disabled={endOffset >= pizzas.length}
                         className={styles.button}
                         type='button'>&gt;
                     </button>

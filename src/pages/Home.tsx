@@ -1,7 +1,7 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useSelector } from 'react-redux';
 
-import { setCategoryId, selectFilter } from '../redux/slices/filterSlice';
+import { setCategoryId, selectFilter, setCurrentPage } from '../redux/slices/filterSlice';
 import { useAppDispatch } from "../redux/store";
 import { fetchPizzas, selectItems } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
@@ -16,6 +16,7 @@ const Home: React.FC = () => {
     const dispatch = useAppDispatch();
     const { categoryId, sort, searchValue, currentPage } = useSelector(selectFilter);
     const { error, items } = useSelector(selectItems);
+    const [pageItemsOffset, setPageItemsOffset] = useState(0);
     const refTimer = useRef<number | null>(null);
 
     const startTimer = () => {
@@ -27,8 +28,20 @@ const Home: React.FC = () => {
 
     const onChangeCategory = useCallback((id: number) => {
         dispatch(setCategoryId(id));
+
+        if (items.length <= 4) {
+            console.log('changePage')
+            onChangePage(0);
+        }
         // eslint-disable-next-line
     }, []);
+
+    const onChangePage = useCallback((page: number) => {
+        const newOffset = (page * 4) % pizzas.length;
+        dispatch(setCurrentPage(page));
+        setPageItemsOffset(newOffset);
+        // eslint-disable-next-line
+    }, [categoryId, currentPage]);
 
     const getPizzas = async () => {
         const sortBy = sort.sortProperty.replace('-', '');
@@ -78,7 +91,7 @@ const Home: React.FC = () => {
                         <Sort />
                     </div>
                     <Search />
-                    <Paginate pizzas={pizzas} />
+                    <Paginate pizzas={pizzas} pageItemsOffset={pageItemsOffset} onChangePage={onChangePage} />
                 </div>
             }
         </>
