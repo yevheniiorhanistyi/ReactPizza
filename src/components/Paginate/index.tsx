@@ -11,21 +11,19 @@ import styles from './Paginate.module.scss';
 
 type PaginateProps = {
     pizzas: PizzaItem[];
-    paginateItemOffset: number;
     onChangePage: (props: number) => void;
 };
 
-const Paginate: React.FC<PaginateProps> = ({ pizzas, paginateItemOffset, onChangePage }) => {
-
-    const { currentPage } = useSelector(selectFilter);
+const Paginate: React.FC<PaginateProps> = ({ pizzas, onChangePage }) => {
+    const { currentPage, itemsOffset} = useSelector(selectFilter);
     const { error, loading } = useSelector(selectItems);
 
-    const endOffset = paginateItemOffset + 4;
-    const currentItems = pizzas.slice(paginateItemOffset, endOffset);
+    const endOffset = itemsOffset + 4;
+    const currentItems = pizzas.slice(itemsOffset, endOffset);
 
     const pageCount = Math.ceil(pizzas.length / 4);
 
-    const pages = Array.from({ length: pageCount }, (v, i) => i + 1);
+    const pages = Array.from({ length: pageCount }, (_, i) => i + 1);
     const skeletons = loading ? [...new Array(4)].map((_, index) => <Skeleton key={index} />) : null;
     const content = !(loading || error) ? currentItems.map((obj) => <PizzaBlock key={obj.id} {...obj} />) : null;
 
@@ -39,7 +37,7 @@ const Paginate: React.FC<PaginateProps> = ({ pizzas, paginateItemOffset, onChang
                 <li className={styles.previous} >
                     <button
                         onClick={() => onChangePage(currentPage - 1)}
-                        disabled={paginateItemOffset === 0}
+                        disabled={itemsOffset === 0}
                         className={styles.button}
                         type='button'>&lt;
                     </button>

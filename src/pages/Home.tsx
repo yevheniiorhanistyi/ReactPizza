@@ -1,7 +1,7 @@
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useSelector } from 'react-redux';
 
-import { setCategoryId, selectFilter, setCurrentPage } from '../redux/slices/filterSlice';
+import { setCategoryId, selectFilter, setCurrentPage, setItemsOffset} from '../redux/slices/filterSlice';
 import { useAppDispatch } from "../redux/store";
 import { fetchPizzas, selectItems } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
@@ -14,9 +14,8 @@ import Paginate from "../components/Paginate";
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { categoryId, sort, searchValue, currentPage } = useSelector(selectFilter);
+    const { categoryId, sort, searchValue, currentPage} = useSelector(selectFilter);
     const { error, items } = useSelector(selectItems);
-    const [paginateItemOffset, setPaginateItemOffset] = useState(0);
     const refTimer = useRef<number | null>(null);
 
     const startTimer = () => {
@@ -35,10 +34,10 @@ const Home: React.FC = () => {
         if(page) {
             const newOffset = (page * 4) % pizzas.length;
             dispatch(setCurrentPage(page));
-            setPaginateItemOffset(newOffset);
+            setItemsOffset(newOffset);
         } else {
             dispatch(setCurrentPage(0));
-            setPaginateItemOffset(0);
+            setItemsOffset(0);
         }
     };
 
@@ -95,7 +94,7 @@ const Home: React.FC = () => {
                         <Sort />
                     </div>
                     <Search />
-                    <Paginate pizzas={pizzas} paginateItemOffset={paginateItemOffset} onChangePage={onChangePage} />
+                    <Paginate pizzas={pizzas} onChangePage={onChangePage} />
                 </div>
             }
         </>
