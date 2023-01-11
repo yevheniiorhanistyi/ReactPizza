@@ -28,20 +28,19 @@ const Home: React.FC = () => {
 
     const onChangeCategory = useCallback((id: number) => {
         dispatch(setCategoryId(id));
-
-        if (items.length <= 4) {
-            console.log('changePage')
-            onChangePage(0);
-        }
+        
+        dispatch(setCurrentPage(0));
+        setPageItemsOffset(0);
         // eslint-disable-next-line
-    }, []);
+    }, [categoryId, searchValue]);
 
-    const onChangePage = useCallback((page: number) => {
+    const onChangePage = (page: number) => {
+        console.log('run change');
+        
         const newOffset = (page * 4) % pizzas.length;
         dispatch(setCurrentPage(page));
         setPageItemsOffset(newOffset);
-        // eslint-disable-next-line
-    }, [categoryId, currentPage]);
+    };
 
     const getPizzas = async () => {
         const sortBy = sort.sortProperty.replace('-', '');
@@ -63,7 +62,7 @@ const Home: React.FC = () => {
     useEffect(() => {
         getPizzas();
         startTimer();
-
+        
         return () => {
             if (refTimer.current !== null) {
                 window.clearTimeout(refTimer.current);
