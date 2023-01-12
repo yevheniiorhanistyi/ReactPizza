@@ -34,10 +34,10 @@ const Home: React.FC = () => {
         if(page) {
             const newOffset = (page * 4) % pizzas.length;
             dispatch(setCurrentPage(page));
-            setItemsOffset(newOffset);
+            dispatch(setItemsOffset(newOffset));
         } else {
             dispatch(setCurrentPage(0));
-            setItemsOffset(0);
+            dispatch(setItemsOffset(0));
         }
     };
 

@@ -56,7 +56,7 @@ const Paginate: React.FC<PaginateProps> = ({ pizzas, onChangePage }) => {
                 <li className={styles.next} >
                     <button
                         onClick={() => onChangePage(currentPage + 1)}
-                        disabled={endOffset >= pizzas.length}
+                        disabled={currentPage === pageCount - 1}
                         className={styles.button}
                         type='button'>&gt;
                     </button>
