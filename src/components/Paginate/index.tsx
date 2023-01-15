@@ -15,7 +15,7 @@ type PaginateProps = {
 };
 
 const Paginate: React.FC<PaginateProps> = ({ pizzas, onChangePage }) => {
-    const { currentPage, itemsOffset} = useSelector(selectFilter);
+    const { currentPage, itemsOffset } = useSelector(selectFilter);
     const { error, loading } = useSelector(selectItems);
 
     const endOffset = itemsOffset + 4;

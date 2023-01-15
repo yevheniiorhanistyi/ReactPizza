@@ -1,20 +1,20 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useSelector } from 'react-redux';
 
-import { setCategoryId, selectFilter, setCurrentPage, setItemsOffset} from '../redux/slices/filterSlice';
+import { setCategoryId, selectFilter, setCurrentPage, setItemsOffset } from '../redux/slices/filterSlice';
 import { useAppDispatch } from "../redux/store";
 import { fetchPizzas, selectItems } from "../redux/slices/pizzaSlice";
 import { setLoading } from "../redux/slices/preloadSlice";
 
 import ErrorMessage from "../components/ErrorMessage";
 import Categories from '../components/Categories';
-import Sort from '../components/Sort';
+import SortPopup from '../components/Sort';
 import Search from "../components/Search";
 import Paginate from "../components/Paginate";
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { categoryId, sort, searchValue, currentPage} = useSelector(selectFilter);
+    const { categoryId, sort, searchValue, currentPage } = useSelector(selectFilter);
     const { error, items } = useSelector(selectItems);
     const refTimer = useRef<number | null>(null);
 
@@ -28,10 +28,11 @@ const Home: React.FC = () => {
     const onChangeCategory = useCallback((id: number) => {
         dispatch(setCategoryId(id));
         // eslint-disable-next-line
-    }, [categoryId, searchValue]);
+    }, []);
 
     const onChangePage = (page: number) => {
-        if(page) {
+
+        if (page) {
             const newOffset = (page * 4) % pizzas.length;
             dispatch(setCurrentPage(page));
             dispatch(setItemsOffset(newOffset));
@@ -61,7 +62,7 @@ const Home: React.FC = () => {
     useEffect(() => {
         getPizzas();
         startTimer();
-        
+
         return () => {
             if (refTimer.current !== null) {
                 window.clearTimeout(refTimer.current);
@@ -91,7 +92,7 @@ const Home: React.FC = () => {
                 <div className="container">
                     <div className="content__top">
                         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-                        <Sort />
+                        <SortPopup value={sort} />
                     </div>
                     <Search />
                     <Paginate pizzas={pizzas} onChangePage={onChangePage} />

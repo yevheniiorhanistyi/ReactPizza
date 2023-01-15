@@ -1,17 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { Sort } from "../redux/slices/filterSlice";
+import { useDispatch } from "react-redux";
 import { setSort } from '../redux/slices/filterSlice';
-import { selectFilter } from '../redux/slices/filterSlice';
 
 type SortItem = {
     name: string;
     sortProperty: string;
 };
 
+type SortProps = {
+    value: Sort;
+}
 
-const Sort: React.FC = () => {
+const SortPopup: React.FC<SortProps> = React.memo(({ value }) => {
     const dispatch = useDispatch();
-    const { sort } = useSelector(selectFilter);
     const [open, setOpen] = useState(false);
     const sortRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +57,7 @@ const Sort: React.FC = () => {
                     />
                 </svg>
                 <b>Sortuj</b>
-                <span onClick={() => setOpen(!open)}>{sort.name}</span>
+                <span onClick={() => setOpen(!open)}>{value.name}</span>
             </div>
             {
                 open && (
@@ -64,7 +66,7 @@ const Sort: React.FC = () => {
                             {sortList.map((obj, i) => (
                                 <li
                                     onClick={() => onClickSelectedItem(obj)}
-                                    className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
+                                    className={value.sortProperty === obj.sortProperty ? 'active' : ''}
                                     key={i}>
                                     {obj.name}
                                 </li>))}
@@ -74,6 +76,6 @@ const Sort: React.FC = () => {
             }
         </div>
     )
-}
+});
 
-export default Sort;
+export default SortPopup;
