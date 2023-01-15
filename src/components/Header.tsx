@@ -1,3 +1,4 @@
+import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useSelector } from 'react-redux/es/exports';
@@ -12,7 +13,9 @@ const Header: React.FC = () => {
     const { error } = useSelector(selectItems);
     const { pathname } = useLocation();
 
-    const totalCount: number = items.reduce((sum: number, item: any) => sum + item.count, 0);
+    const totalCount = useMemo(() => {
+        return items.reduce((sum: number, item: any) => sum + item.count, 0)
+    }, [items]);
 
     return (
         <div className="header">
@@ -65,6 +68,6 @@ const Header: React.FC = () => {
             </div>
         </div>
     )
-}
+};
 
 export default Header;
