@@ -12,10 +12,10 @@ import {
     REGISTER,
 } from 'redux-persist';
 
-import preload from './slices/preloadSlice'
-import pizza from './slices/pizzaSlice';
-import filter from './slices/filterSlice';
-import cart from './slices/cartSlice';
+import preload from './preload/slice';
+import pizza from './pizza/slice';
+import filter from './filter/slice';
+import cart from './cart/slice';
 
 const rootReducer = combineReducers({
     preload,

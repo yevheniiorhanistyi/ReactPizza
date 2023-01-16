@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useSelector } from 'react-redux/es/exports';
-import { selectCart } from '../redux/slices/cartSlice';
-import { selectItems } from '../redux/slices/pizzaSlice';
+import { selectCart } from '../redux/cart/selectors';
+import { selectItems } from '../redux/pizza/selectors';
 
 import pizzaLogo from '../assets/img/pizza-logo.png';
 

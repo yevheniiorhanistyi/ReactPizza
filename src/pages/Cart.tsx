@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { selectCart } from '../redux/slices/cartSlice';
+import { selectCart } from '../redux/cart/selectors';
 
-import { clearItems } from "../redux/slices/cartSlice";
-import { setLoading } from "../redux/slices/preloadSlice";
+import { clearItems } from "../redux/cart/slice";
+import { setLoading } from '../redux/preload/slice';
 
 import CartItem from "../components/CartItem";
 import CartEmpty from '../components/CartEmpty';

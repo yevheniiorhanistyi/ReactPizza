@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
-import { selectItems } from '../../redux/slices/pizzaSlice';
-import { selectFilter } from '../../redux/slices/filterSlice';
+import { selectItems } from '../../redux/pizza/selectors';
+import { selectFilter } from '../../redux/filter/selectors';
 
-import { PizzaItem } from '../../redux/slices/pizzaSlice';
+import { PizzaItem } from '../../redux/pizza/types';
 
 import PizzaBlock from '../PizzaBlock';
 import Skeleton from '../PizzaBlock/Skeleton';

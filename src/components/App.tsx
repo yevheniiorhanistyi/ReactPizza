@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router';
 import { useSelector } from 'react-redux';
 
-import { selectLoading } from '../redux/slices/preloadSlice';
+import { selectLoading } from '../redux/preload/selectors';
 
 import Preloader from './Preloader';
 import Header from './Header';

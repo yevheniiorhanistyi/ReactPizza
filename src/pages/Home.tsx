@@ -1,10 +1,12 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useSelector } from 'react-redux';
 
-import { setCategoryId, selectFilter, setCurrentPage, setItemsOffset } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage, setItemsOffset } from '../redux/filter/slice';
+import { selectFilter } from "../redux/filter/selectors";
 import { useAppDispatch } from "../redux/store";
-import { fetchPizzas, selectItems } from "../redux/slices/pizzaSlice";
-import { setLoading } from "../redux/slices/preloadSlice";
+import { fetchPizzas } from "../redux/pizza/asyncActions";
+import { selectItems } from '../redux/pizza/selectors'
+import { setLoading } from "../redux/preload/slice";
 
 import ErrorMessage from "../components/ErrorMessage";
 import Categories from '../components/Categories';
