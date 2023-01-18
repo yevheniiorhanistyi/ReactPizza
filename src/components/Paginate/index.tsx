@@ -4,7 +4,7 @@ import { selectFilter } from '../../redux/filter/selectors';
 
 import { PizzaItem } from '../../redux/pizza/types';
 
-import PizzaBlock from '../PizzaBlock';
+import { PizzaBlock } from '../';
 import Skeleton from '../PizzaBlock/Skeleton';
 
 import styles from './Paginate.module.scss';
@@ -14,7 +14,7 @@ type PaginateProps = {
     onChangePage: (props: number) => void;
 };
 
-const Paginate: React.FC<PaginateProps> = ({ pizzas, onChangePage }) => {
+export const Paginate: React.FC<PaginateProps> = ({ pizzas, onChangePage }) => {
     const { currentPage, itemsOffset } = useSelector(selectFilter);
     const { error, loading } = useSelector(selectItems);
 
@@ -65,5 +65,3 @@ const Paginate: React.FC<PaginateProps> = ({ pizzas, onChangePage }) => {
         </>
     )
 }
-
-export default Paginate;

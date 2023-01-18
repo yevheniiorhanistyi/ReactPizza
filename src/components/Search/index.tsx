@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 
 import styles from './Search.module.scss';
 
-const Search: React.FC = React.memo(() => {
+export const Search: React.FC = React.memo(() => {
     const dispatch = useDispatch();
     const [value, setValue] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -64,5 +64,3 @@ const Search: React.FC = React.memo(() => {
         </div>
     )
 });
-
-export default Search;

@@ -12,7 +12,7 @@ type SortProps = {
     value: Sort;
 }
 
-const SortPopup: React.FC<SortProps> = React.memo(({ value }) => {
+export const SortPopup: React.FC<SortProps> = React.memo(({ value }) => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const sortRef = useRef<HTMLDivElement>(null);
@@ -77,5 +77,3 @@ const SortPopup: React.FC<SortProps> = React.memo(({ value }) => {
         </div>
     )
 });
-
-export default SortPopup;

@@ -5,7 +5,7 @@ type CategoriesProps = {
     onChangeCategory: (id: number) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCategory }) => {
+export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCategory }) => {
     const categories = ['Wszystkie ', 'Mięsna', 'Wegetariańska', 'Smażona', 'Neapolitańska', 'Sycylijska'];
 
     return (
@@ -23,6 +23,4 @@ const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCateg
             </ul>
         </div>
     )
-})
-
-export default Categories;
+});

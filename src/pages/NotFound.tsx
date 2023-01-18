@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setLoading } from "../redux/preload/slice";
-import NotFoundBlock from "../components/NotFoundBlock";
+
+import { NotFoundBlock } from "../components";
 
 const NotFound = () => {
     const dispatch = useDispatch();

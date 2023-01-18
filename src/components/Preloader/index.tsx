@@ -2,7 +2,7 @@ import preloadImg from '../../assets/img/Preloader.svg';
 
 import styles from './Preloader.module.scss';
 
-const Preloader: React.FC = () => {
+export const Preloader: React.FC = () => {
     return (
         <div className={styles.root}>
             <div className={styles.wrapper}>
@@ -10,6 +10,4 @@ const Preloader: React.FC = () => {
             </div>
         </div>
     )
-}
-
-export default Preloader;
+};

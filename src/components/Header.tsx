@@ -8,7 +8,7 @@ import { selectItems } from '../redux/pizza/selectors';
 import pizzaLogo from '../assets/img/pizza-logo.png';
 
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
     const { items, totalPrice } = useSelector(selectCart);
     const { error } = useSelector(selectItems);
     const { pathname } = useLocation();
@@ -69,5 +69,3 @@ const Header: React.FC = () => {
         </div>
     )
 };
-
-export default Header;

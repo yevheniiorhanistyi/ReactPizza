@@ -8,11 +8,7 @@ import { fetchPizzas } from "../redux/pizza/asyncActions";
 import { selectItems } from '../redux/pizza/selectors'
 import { setLoading } from "../redux/preload/slice";
 
-import ErrorMessage from "../components/ErrorMessage";
-import Categories from '../components/Categories';
-import SortPopup from '../components/Sort';
-import Search from "../components/Search";
-import Paginate from "../components/Paginate";
+import { ErrorMessage, Categories, SortPopup, Search, Paginate } from '../components';
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch();
