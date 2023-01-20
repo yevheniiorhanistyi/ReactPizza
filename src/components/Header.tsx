@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
                     {pathname !== '/cart' && !error &&
 
                         <Link to="/cart" className="button button--cart">
-                            <span>{totalPrice} ₽</span>
+                            <span>{totalPrice} zł</span>
                             <div className="button__delimiter"></div>
                             <svg
                                 width="18"

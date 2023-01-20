@@ -1,5 +1,5 @@
-import img from './error.gif';
-import styles from './errorMessage.module.scss';
+import img from './Error.gif';
+import styles from './ErrorMessage.module.scss';
 
 export const ErrorMessage: React.FC = () => {
     return (

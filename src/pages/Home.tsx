@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useSelector } from 'react-redux';
 
 import { setCategoryId, setCurrentPage, setItemsOffset } from '../redux/filter/slice';
@@ -6,7 +6,6 @@ import { selectFilter } from "../redux/filter/selectors";
 import { useAppDispatch } from "../redux/store";
 import { fetchPizzas } from "../redux/pizza/asyncActions";
 import { selectItems } from '../redux/pizza/selectors'
-import { setLoading } from "../redux/preload/slice";
 
 import { ErrorMessage, Categories, SortPopup, Search, Paginate } from '../components';
 
@@ -14,14 +13,7 @@ const Home: React.FC = () => {
     const dispatch = useAppDispatch();
     const { categoryId, sort, searchValue, currentPage } = useSelector(selectFilter);
     const { error, items } = useSelector(selectItems);
-    const refTimer = useRef<number | null>(null);
 
-    const startTimer = () => {
-        if (refTimer.current !== null) return;
-        refTimer.current = window.setTimeout(() => {
-            dispatch(setLoading(false))
-        }, 1000);
-    };
 
     const onChangeCategory = useCallback((id: number) => {
         dispatch(setCategoryId(id));
@@ -59,14 +51,6 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         getPizzas();
-        startTimer();
-
-        return () => {
-            if (refTimer.current !== null) {
-                window.clearTimeout(refTimer.current);
-                refTimer.current = null;
-            }
-        }
         // eslint-disable-next-line
     }, [categoryId, sort, searchValue, currentPage]);
 

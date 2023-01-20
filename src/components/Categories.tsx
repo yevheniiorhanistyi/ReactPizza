@@ -6,7 +6,7 @@ type CategoriesProps = {
 };
 
 export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onChangeCategory }) => {
-    const categories = ['Wszystkie ', 'Mięsna', 'Wegetariańska', 'Smażona', 'Neapolitańska', 'Sycylijska'];
+    const categories = ['Wszystkie ', 'Mięsna', 'Smażona', 'Wegetariańska', 'Neapolitańska', 'Sycylijska'];
 
     return (
         <div className="categories">

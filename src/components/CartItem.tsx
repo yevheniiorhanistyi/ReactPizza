@@ -68,7 +68,7 @@ export const CartItem: React.FC<CartItemProps> = ({ id, title, price, count, ima
             </div>
             <div className="cart-wrapper cart-wrapper--right">
                 <div className="cart__item-price">
-                    <b>{price * count} ₽</b>
+                    <b>{price * count} zł</b>
                 </div>
                 <div className="cart__item-remove">
                     <button onClick={onClickRemove} className="button button--outline button--circle">
