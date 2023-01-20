@@ -1,7 +1,5 @@
 # React Pizza :pizza:
 
-![preview-pizza](preview-image.png)
-
 ## Technology used:
 - ReactJS 18
 - TypeScript
@@ -15,4 +13,6 @@
 - React Pagination 
 - Lodash.Debounce
 - Code Splitting, React Loadable, useWhyDidYouUpdate.
+
+![preview-pizza](preview-image.png)
 
