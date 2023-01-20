@@ -4,6 +4,7 @@ import { FilterSliceState, Sort } from './types';
 const initialState: FilterSliceState = {
     categoryId: 0,
     currentPage: 0,
+    pageCount: 1,
     itemsOffset: 0,
     searchValue: '',
     sort: {
@@ -28,12 +29,15 @@ export const filterSlice = createSlice({
         setCurrentPage(state, action: PayloadAction<number>) {
             state.currentPage = action.payload;
         },
+        setPageCount(state, action: PayloadAction<number>) {
+            state.pageCount = action.payload;
+        },
         setItemsOffset(state, action: PayloadAction<number>) {
             state.itemsOffset = action.payload;
         }
     },
 });
 
-export const { setCategoryId, setSort, setSearchValue, setCurrentPage, setItemsOffset } = filterSlice.actions
+export const { setCategoryId, setSort, setSearchValue, setCurrentPage, setPageCount, setItemsOffset } = filterSlice.actions
 
 export default filterSlice.reducer
