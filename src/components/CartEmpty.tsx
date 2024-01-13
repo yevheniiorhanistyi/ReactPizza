@@ -9,16 +9,16 @@ export const CartEmpty: React.FC = () => {
     return (
         <div className="container container--cart">
             <div className="cart cart--empty">
-                <h2>Koszyk jest pusty<span>😕</span></h2>
+                <h2>Cart is empty<span>😕</span></h2>
                 <p>
-                    Najprawdopodobniej nie zamówiłeś jeszcze pizzy.<br />
-                    Aby zamówić pizzę, przejdź do strony głównej.
+                    You probably haven't ordered pizza yet.<br />
+                    To order pizza, go to the main page.
                 </p>
-                <div style={{'display': 'block', 'margin': '45px auto 60px', 'width': '300px', 'height': '255px'}}>
-                    <LazyLoadImage className='cart__image' src={Image}  alt="Empty cart"  effect='blur'/>
+                <div style={{ 'display': 'block', 'margin': '45px auto 60px', 'width': '300px', 'height': '255px' }}>
+                    <LazyLoadImage className='cart__image' src={Image} alt="Empty cart" effect='blur' />
                 </div>
                 <Link to="/" className="button button--black">
-                    <span>Powrót</span>
+                    <span>Back</span>
                 </Link>
             </div>
         </div>

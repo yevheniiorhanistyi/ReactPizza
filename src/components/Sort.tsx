@@ -18,9 +18,9 @@ export const SortPopup: React.FC<SortProps> = React.memo(({ value }) => {
     const sortRef = useRef<HTMLDivElement>(null);
 
     const sortList: SortItem[] = [
-        { name: 'Popularność', sortProperty: 'rating' },
-        { name: 'Ceny rosnąco', sortProperty: '-price' },
-        { name: 'Ceny malejąco', sortProperty: 'price' }];
+        { name: 'Best match', sortProperty: 'rating' },
+        { name: 'Price: highest first', sortProperty: 'price' },
+        { name: 'Price: lowest first', sortProperty: '-price' }];
 
     const onClickSelectedItem = (obj: SortItem) => {
         dispatch(setSort(obj))
@@ -56,7 +56,7 @@ export const SortPopup: React.FC<SortProps> = React.memo(({ value }) => {
                         fill="#2C2C2C"
                     />
                 </svg>
-                <b>Sortuj</b>
+                <b>Sort</b>
                 <span onClick={() => setOpen(!open)}>{value.name}</span>
             </div>
             {

@@ -45,7 +45,7 @@ export const Search: React.FC = React.memo(() => {
                 className={styles.input}
                 value={value}
                 type="text"
-                placeholder="Szukaj..."
+                placeholder="Search..."
             />
 
             {value && (
